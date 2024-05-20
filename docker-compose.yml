@@ -1,12 +1,9 @@
+name: override
 services:
-  override-app:
-    image: linux-do/override:latest
-    container_name: override-app
-    restart: always
-    build:
-        context: .
-        dockerfile: Dockerfile
-    volumes:
-      - ./config.json:/app/config.json
-    ports:
-        - "8181:8181"
+    override:
+      container_name: override
+      ports:
+          - 8080:8080
+      volumes:
+          - /root/docker/override:/app
+      image: cursor1st/override:latest
