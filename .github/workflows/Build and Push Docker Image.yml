@@ -5,6 +5,11 @@ on:
     branches:
       - master  # Replace with your branch name if different
 
+env:
+  DOCKER_HUB_USERNAME: cursor1st
+  DOCKER_HUB_REPO: override  # Replace with your repo name
+      
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -12,6 +17,16 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
       
+      # - name: Save dev version info
+      #   run: |
+      #     HASH=$(git rev-parse --short=7 HEAD)
+      #     echo "dev-$HASH" > VERSION
+
+      # - name: Save Tag version info
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   run: |
+      #     git describe --tags > VERSION
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       
@@ -26,12 +41,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: cursor1st/override
+          images: |
+            docker.io/${{ env.DOCKER_HUB_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
           tags: |
-            type=ref,event=tag
+            type=raw,value=dev,enable=${{ github.ref == 'refs/heads/master' }}
+            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/') }}
             type=semver,pattern={{version}}
-            type=raw,value=latest
-      
+        
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
