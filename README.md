@@ -2,12 +2,14 @@
 
 ## 这个仓库什么也不能做，请不要盯着我。
 
+# 务必更新到最新版本VSCode！
+# 务必更新到最新版本VSCode！
+# 务必更新到最新版本VSCode！
 ### VSCode 配置：
-
 ```json
     "github.copilot.advanced": {
-        "debug.overrideCAPIUrl": "http://127.0.0.1:8181",
-        "debug.overrideProxyUrl": "http://127.0.0.1:8181",
+        "debug.overrideCAPIUrl": "http://127.0.0.1:8080", # 端口号以compose中设置为准
+        "debug.overrideProxyUrl": "http://127.0.0.1:8080", # 端口号以compose中设置为准
         "debug.chatOverrideProxyUrl": "http://127.0.0.1:8181/v1/chat/completions",
         "authProvider": "github-enterprise"
     },
