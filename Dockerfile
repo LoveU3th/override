@@ -2,7 +2,6 @@ FROM golang:alpine AS builder
 
 WORKDIR /app
 COPY . .
-COPY . .
 
 ENV GO111MODULE=on
 RUN go mod download
